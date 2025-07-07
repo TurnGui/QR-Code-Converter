@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QR Code Generator</title>
+        <link rel="stylesheet" href="estilo.css">
+        
+    </head>
+    
+     <body>  
+        <div class="caixa">
+         <p>Please enter your URL</p>
+         <input type="text" placeholder="URL" id="urlInput">
+         <p id="aviso" style="color: rgb(255, 0, 0); display: none;">
+            Please enter a URL first.
+         </p>
+         <div id="caixaQR">
+            <img src="" id="imagemQR">
+         </div>
+         <button onclick="geraQrimagem()">Generate QR Code</button>
+        </div>
+        
+        <script>
+
+        let caixaQR = document.getElementById("caixaQR");
+        let imagemQR = document.getElementById("imagemQR");
+        let urlInput = document.getElementById("urlInput");
+        let aviso = document.getElementById("aviso");
+
+        function geraQrimagem() {
+            const valor = urlInput.value.trim();
+
+            if (valor === "") {
+                aviso.style.display = "block";
+                caixaQR.classList.remove("ativa");
+                imagemQR.src = "";
+                return;
+            }
+
+            aviso.style.display = "none";
+
+            if (valor.toLowerCase() === "manu") {
+                imagemQR.src = "https://cdn.pixabay.com/photo/2020/06/23/19/30/love-5333580_960_720.jpg";
+            } else {
+                imagemQR.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(valor);
+            }
+
+            caixaQR.classList.add("ativa");
+        }
+
+        </script>
+
+    </body>
+
+</html> 
